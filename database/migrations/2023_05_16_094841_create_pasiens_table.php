@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreatePasiensTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('pasiens', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('rumah_sakit');
+            $table->string('name');
+            $table->text('address');
+            $table->string('telp');
+            $table->timestamps();
+
+            $table->foreign('rumah_sakit')->on('rumah_sakits')->references('id')->onDelete('cascade')->onUpdate('cascade');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('pasiens');
+    }
+}
